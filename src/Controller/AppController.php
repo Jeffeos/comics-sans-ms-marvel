@@ -15,18 +15,8 @@ class AppController extends AbstractController
      */
     public function index() :Response
     {
-        $characters = [];
         // Get Characters list from API for display
-        $charactersRawData = $this->getCharactersFromMarvel();
-
-        foreach ($charactersRawData as $characterData)
-        {
-            $characters[$characterData['name']] = new Character([
-                'id' => $characterData['id'],
-                'name' => $characterData['name'],
-                'picture' => $characterData['thumbnail']['path'] . '/portrait_uncanny.jpg'
-            ]);
-        }
+        $characters = $this->getCharactersFromMarvel();
 
         return $this->render('index.html.twig', [
             'characters' => $characters]
@@ -36,7 +26,20 @@ class AppController extends AbstractController
     public function getCharactersFromMarvel()
     {
         $APIMarvelManager = new APIMarvelManager();
+        $charactersRawData = $APIMarvelManager->getCharacters(20, 100);
 
-        return $APIMarvelManager->getCharacters(20, 100);
+        $characters = [];
+
+        // Create an array of characters object
+        foreach ($charactersRawData as $characterData)
+        {
+            $characters[$characterData['name']] = new Character([
+                'id' => $characterData['id'],
+                'name' => $characterData['name'],
+                'picture' => $characterData['thumbnail']['path'] . '/portrait_xlarge.jpg'
+            ]);
+        }
+
+        return $characters;
     }
 }

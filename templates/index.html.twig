@@ -1,9 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>index</h1>
+    <h1 class="d-flex justify-content-center">comics sans ms marvel</h1>
     {% for character in characters %}
-        {{ character.name }}
-        <img src="{{ character.picture }}" alt="{{ character.name }}'s picture">
+        <div class="card d-inline-flex justify-content-around mx-2 my-5" style="width: 18rem;">
+            <img class="card-img-top" src="{{ character.picture }}" alt=""{{ character.name }}'s picture">
+            <div class="card-body">
+                <a href="#" class="btn btn-primary d-flex justify-content-center">{{ character.name }}</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
