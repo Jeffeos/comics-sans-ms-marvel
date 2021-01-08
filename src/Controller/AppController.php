@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
+use App\Service\APIMarvelManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,18 +15,28 @@ class AppController extends AbstractController
      */
     public function index() :Response
     {
+        $characters = [];
         // Get Characters list from API for display
+        $charactersRawData = $this->getCharactersFromMarvel();
 
-        // Sample character creation
-        $hulk = new Character([
-            'id' => 0,
-            'name' => 'Hulk',
-            'picture' => 'https://e7.pngegg.com/pngimages/211/369/png-clipart-hulk-hulk-thumbnail.png'
-        ]);
-        $characters = [$hulk];
+        foreach ($charactersRawData as $characterData)
+        {
+            $characters[$characterData['name']] = new Character([
+                'id' => $characterData['id'],
+                'name' => $characterData['name'],
+                'picture' => $characterData['thumbnail']['path'] . '/portrait_uncanny.jpg'
+            ]);
+        }
 
         return $this->render('index.html.twig', [
             'characters' => $characters]
         );
+    }
+
+    public function getCharactersFromMarvel()
+    {
+        $APIMarvelManager = new APIMarvelManager();
+
+        return $APIMarvelManager->getCharacters(20, 100);
     }
 }
