@@ -1,1 +1,9 @@
 {% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>index</h1>
+    {% for character in characters %}
+        {{ character.name }}
+        <img src="{{ character.picture }}" alt="{{ character.name }}'s picture">
+    {% endfor %}
+{% endblock %}
