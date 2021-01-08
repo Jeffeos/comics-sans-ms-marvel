@@ -23,17 +23,18 @@ class APIMarvelManager
         $this->apiPrivateKey = $_ENV['MARVEL_API_PRIVATE_KEY'];
     }
 
-    public function getCharacters(int $limit = 100, int $offset = 0)
+    public function getCharacters(int $limit = 100, int $offset = 0, $id = '')
     {
         $date = new DateTime();
         $ts = $date->getTimestamp();
 
         $fullApiKey = '&ts=' . $ts . '&apikey=' . $this->apiPublicKey . '&hash=' . md5($ts . $this->apiPrivateKey . $this->apiPublicKey);
+        $idParam = $id ? '&id=' . $id : '';
 
         // Send the request to the API
         $response = $this->client->request(
             'GET',
-            $this->baseUrl . 'characters?limit=' . $limit . '&offset=' . $offset . $fullApiKey
+            $this->baseUrl . 'characters?limit=' . $limit . '&offset=' . $offset . $idParam . $fullApiKey
         );
 
         return $response->toArray()['data']['results'];
