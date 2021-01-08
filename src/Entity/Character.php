@@ -7,14 +7,18 @@ namespace App\Entity;
 class Character
 {
     protected $id;
-    protected $name;
-    protected $picture;
+    protected $name = '';
+    protected $picture = '';
+    protected $description = '';
+    protected $comicsAppearances = [];
 
     public function __construct($data)
     {
         $this->setId($data['id']);
         $this->setName($data['name']);
         $this->setPicture($data['picture']);
+        $this->setDescription($data['description']);
+        $this->setComicsAppearances($data['comicsAppearances']);
     }
 
     public function setId(int $id): self
@@ -51,5 +55,29 @@ class Character
     public function getPicture(): ?string
     {
         return $this->picture;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setComicsAppearances(array $comicsAppearances): self
+    {
+        $this->comicsAppearances = $comicsAppearances;
+
+        return $this;
+    }
+
+    public function getComicsAppearances(): ?array
+    {
+        return $this->comicsAppearances;
     }
 }

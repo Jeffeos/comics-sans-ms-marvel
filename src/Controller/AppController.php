@@ -16,27 +16,48 @@ class AppController extends AbstractController
     public function index() :Response
     {
         // Get Characters list from API for display
-        $characters = $this->getCharactersFromMarvel();
+        $characters = $this->getCharactersFromMarvel(20, 100);
 
         return $this->render('index.html.twig', [
-            'characters' => $characters]
-        );
+            'characters' => $characters
+        ]);
     }
 
-    public function getCharactersFromMarvel()
+    /**
+     * @Route("/character/{id}", name="app_character", methods={"GET"})
+     */
+    public function showCharacter($id) :Response
+    {
+        $character = $this->getCharactersFromMarvel(1, 0, $id);
+
+        return $this->render('character.html.twig', [
+            'character' => $character[0]
+        ]);
+    }
+
+    public function getCharactersFromMarvel($limit = 100, $offset = 0, $id = '')
     {
         $APIMarvelManager = new APIMarvelManager();
-        $charactersRawData = $APIMarvelManager->getCharacters(20, 100);
+        $charactersRawData = $APIMarvelManager->getCharacters($limit, $offset, $id);
 
         $characters = [];
 
         // Create an array of characters object
         foreach ($charactersRawData as $characterData)
         {
-            $characters[$characterData['name']] = new Character([
+            // Create array of comic appearances
+            $comicsAppearances = [];
+            foreach ($characterData['comics']['items'] as $characterAppearances)
+            {
+                array_push($comicsAppearances, $characterAppearances['name']);
+            }
+
+            $characters[] = new Character([
                 'id' => $characterData['id'],
                 'name' => $characterData['name'],
-                'picture' => $characterData['thumbnail']['path'] . '/portrait_xlarge.jpg'
+                'picture' => $characterData['thumbnail']['path'] . '/portrait_xlarge.jpg',
+                'description' => $characterData['description'],
+                'comicsAppearances' => $comicsAppearances
             ]);
         }
 

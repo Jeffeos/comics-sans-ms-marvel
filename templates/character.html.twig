@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1 class="d-flex justify-content-center">{{ character.name }}</h1>
+    <div class="card mx-auto" style="width: 18rem;">
+        <img class="card-img-top" src="{{ character.picture }}" alt={{ character.name }}'s picture">
+        <div class="card-body">
+            <h5 class="card-title">{{ character.description }}</h5>
+            <p class="card-text">Number of comics Appearances: {{ character.comicsAppearances|length }}</p>
+            <ul>
+                {% for comics in character.comicsAppearances|slice(0, 3) %}
+                    <li>{{ comics }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
