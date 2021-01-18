@@ -1,13 +1,21 @@
 {% extends "base.html.twig" %}
 
-{% block body %}
-    <h1 class="d-flex justify-content-center">comics sans ms marvel</h1>
-    {% for character in characters %}
-        <div class="card d-inline-flex justify-content-around mx-2 my-5" style="width: 18rem;">
-            <img class="card-img-top" src="{{ character.picture }}" alt={{ character.name }}'s picture">
-            <div class="card-body">
-                <a href="/character/{{ character.id }}" class="btn btn-primary d-flex justify-content-center">{{ character.name }}</a>
+    {% block pageTitle %}comics sans ms marvel{% endblock %}
+
+    {% block body %}
+
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for character in characters %}
+                    <div class="card col col-3 mx-3 my-3 p-0">
+                        <img class="card-img-top" src="{{ character.picture }}/standard_xlarge.jpg"
+                             alt="{{ character.name }}'s picture">
+                        <div class="card-body">
+                            <a href="/character/{{ character.id }}"
+                               class="btn btn-warning d-flex justify-content-center">{{ character.name }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-    {% endfor %}
-{% endblock %}
+    {% endblock %}

@@ -1,17 +1,33 @@
 {% extends "base.html.twig" %}
 
-{% block body %}
-    <h1 class="d-flex justify-content-center">{{ character.name }}</h1>
-    <div class="card mx-auto" style="width: 18rem;">
-        <img class="card-img-top" src="{{ character.picture }}" alt={{ character.name }}'s picture">
-        <div class="card-body">
-            <h5 class="card-title">{{ character.description }}</h5>
-            <p class="card-text">Number of comics Appearances: {{ character.comicsAppearances|length }}</p>
+    {% block pageTitle %}{{ character.name }}{% endblock %}
+
+    {% block body %}
+
+        <div class="row">
+            <img class="col" src="{{ character.picture }}/landscape_amazing.jpg" alt="{{ character.name }}'s picture">
+
+            <div class="col">
+                <h5 class="card-title">{{ character.description }}</h5>
+                <p class="card-text">Number of comics Appearances: {{ character.comicsAppearances|length }}</p>
+                <ul>
+                    {% for comics in character.comicsAppearances|slice(0, 3) %}
+                        <li>{{ comics }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="my-5">
+            <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Display more comics
+            </button>
+        </div>
+        <div class="collapse" id="collapseExample">
             <ul>
-                {% for comics in character.comicsAppearances|slice(0, 3) %}
+                {% for comics in character.comicsAppearances|slice(4, character.comicsAppearances|length) %}
                     <li>{{ comics }}</li>
                 {% endfor %}
             </ul>
         </div>
-    </div>
-{% endblock %}
+
+    {% endblock %}

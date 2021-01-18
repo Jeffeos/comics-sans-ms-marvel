@@ -55,7 +55,7 @@ class AppController extends AbstractController
             $characters[] = new Character([
                 'id' => $characterData['id'],
                 'name' => $characterData['name'],
-                'picture' => $characterData['thumbnail']['path'] . '/portrait_xlarge.jpg',
+                'picture' => $characterData['thumbnail']['path'], // https://developer.marvel.com/documentation/images
                 'description' => $characterData['description'],
                 'comicsAppearances' => $comicsAppearances
             ]);
