@@ -30,7 +30,7 @@ I. Display Marvel heroes: this app uses the Marvel API (https://developer.marvel
 
 II. Approach:
 - I decided to focus on the backend part of this project by implementing all the best practices I studied and practiced at my first job.
-- This website has been made with PHP Symfony's squeletton, phpUnit and bootstrap.
+- This website has been made with PHP Symfony's skeleton, phpUnit and bootstrap.
 
 III. Further developments:
 - The visual aspect of this app should be updated
@@ -40,4 +40,4 @@ III. Further developments:
 - Tests: Implement tests for the appController
 
 ## Have fun!
-
+`If you want to have a glimpse of the website without installing it, you can check the screenshot folder`
