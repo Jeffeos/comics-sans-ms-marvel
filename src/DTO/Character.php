@@ -1,25 +1,15 @@
 <?php
 
-
-namespace App\Entity;
-
+namespace App\DTO;
 
 class Character
 {
-    protected $id;
-    protected $name = '';
-    protected $picture = '';
-    protected $description = '';
-    protected $comicsAppearances = [];
-
-    public function __construct($data)
-    {
-        $this->setId($data['id']);
-        $this->setName($data['name']);
-        $this->setPicture($data['picture']);
-        $this->setDescription($data['description']);
-        $this->setComicsAppearances($data['comicsAppearances']);
-    }
+    private int $id;
+    private string $name = '';
+    private string $picture = '';
+    private string $description = '';
+    /** @var Comics[] */
+    private array $comicsAppearances = [];
 
     public function setId(int $id): self
     {
@@ -69,14 +59,17 @@ class Character
         return $this->description;
     }
 
-    public function setComicsAppearances(array $comicsAppearances): self
+    public function addComicsAppearances(Comics $comic): self
     {
-        $this->comicsAppearances = $comicsAppearances;
+        $this->comicsAppearances[] = $comic;
 
         return $this;
     }
 
-    public function getComicsAppearances(): ?array
+    /**
+     * @return Comics[]
+     */
+    public function getComicsAppearances()
     {
         return $this->comicsAppearances;
     }

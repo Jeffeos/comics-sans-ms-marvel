@@ -1,7 +1,7 @@
 # comics-sans-ms-marvel
 
 ## Prerequisites
-1. PHP 7.3
+1. PHP 7.4
 2. Symfony 5
 3. Password to access the API Keys or your own Marvel API Keys:
 

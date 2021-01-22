@@ -12,7 +12,7 @@
                 <p class="card-text">Number of comics Appearances: {{ character.comicsAppearances|length }}</p>
                 <ul>
                     {% for comics in character.comicsAppearances|slice(0, 3) %}
-                        <li>{{ comics }}</li>
+                        <li>{{ comics.name }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -25,7 +25,7 @@
         <div class="collapse" id="collapseExample">
             <ul>
                 {% for comics in character.comicsAppearances|slice(4, character.comicsAppearances|length) %}
-                    <li>{{ comics }}</li>
+                    <li>{{ comics.name }}</li>
                 {% endfor %}
             </ul>
         </div>
