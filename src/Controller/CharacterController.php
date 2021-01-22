@@ -2,46 +2,42 @@
 
 namespace App\Controller;
 
-use App\DTO\Character;
-use App\DTO\Comics;
-use App\Service\APIMarvelManager;
-use App\Service\CharacterFactory;
+use App\Adapter\Repository\Character\CharacterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CharacterController extends AbstractController
 {
-    private APIMarvelManager $APIMarvelManager;
-    private CharacterFactory $characterFactory;
+    private CharacterRepository $characterRepository;
 
-    public function __construct(APIMarvelManager $APIMarvelManager, CharacterFactory $characterFactory)
+    public function __construct(CharacterRepository $characterRepository)
     {
-        $this->APIMarvelManager = $APIMarvelManager;
-        $this->characterFactory = $characterFactory;
-
+        $this->characterRepository = $characterRepository;
     }
 
     /**
-     * @param int $limit
-     * @param int $offset
-     * @return Character[]
+     * @Route("/character", name="character_index")
+     * @return Response
      */
-    public function getMarvelCharacters(int $limit = 100, int $offset = 0): array
+    public function index(): Response
     {
-        $charactersRawData = $this->APIMarvelManager->getCharacters($limit, $offset);
-
-        $characters = [];
-
-        foreach ($charactersRawData as $characterData) {
-            $characters[] = $this->characterFactory->create($characterData);
-        }
-
-        return $characters;
+        return $this->render('character/index.html.twig', [
+            'characters' => $this->characterRepository->getMarvelCharacters(20, 100),
+        ]);
     }
 
-    public function getMarvelCharacterById(int $id): Character
+    /**
+     * @Route("/character/{id}", name="character_show", methods={"GET"})
+     * @param int $id
+     * @return Response
+     */
+    public function showCharacter(int $id): Response
     {
-        $characterRawData = $this->APIMarvelManager->getCharacterById($id);
+        $characterArray = $this->characterRepository->getMarvelCharacters(1, 0, $id);
 
-        return $this->characterFactory->create($characterRawData);
+        return $this->render('character/character.html.twig', [
+            'character' => reset($characterArray),
+        ]);
     }
 }
