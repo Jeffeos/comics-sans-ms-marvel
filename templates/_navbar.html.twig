@@ -6,9 +6,9 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home
-                </a>
+            <li class="nav-item d-lg-inline-flex">
+                <a class="nav-link {% if route_name == "app_index" %}active{% endif %}" href="/">Home</a>
+                <a class="nav-link {% if route_name == "character_index" %}active{% endif %}" href="{{ path('character_index') }}">Characters</a>
             </li>
         </ul>
     </div>
