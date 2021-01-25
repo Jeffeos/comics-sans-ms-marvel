@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Adapter\Repository\Character;
-
 
 use DateTime;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MarvelApiCharacterRepositoryAdapter implements CharacterRepositoryAdapterInterface
 {
@@ -14,24 +13,23 @@ class MarvelApiCharacterRepositoryAdapter implements CharacterRepositoryAdapterI
     private string $apiPublicKey;
     private string $apiPrivateKey;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params)
     {
         $this->client = $client;
-
-        $this->baseUrl = $_ENV['MARVEL_REQUEST_URL'];
-        $this->apiPublicKey = $_ENV['MARVEL_API_PUBLIC_KEY'];
-        $this->apiPrivateKey = $_ENV['MARVEL_API_PRIVATE_KEY'];
+        $this->baseUrl = $params->get('marvel_url');
+        $this->apiPublicKey = $params->get('marvel_public_key');
+        $this->apiPrivateKey = $params->get('marvel_private_key');
     }
 
     public function getCharacters(int $limit = 1, int $offset = 0, int $id = null): array
     {
         $fullApiKey = $this->constructFullApiKey();
-        $url = $this->baseUrl . 'characters?' . $fullApiKey;
+        $url = $this->baseUrl.'characters?'.$fullApiKey;
 
         $options = ['query' => [
             'limit' => $limit,
             'offset' => $offset,
-            'id' => $id
+            'id' => $id,
         ]];
 
         $response = $this->client->request('GET', $url, $options);

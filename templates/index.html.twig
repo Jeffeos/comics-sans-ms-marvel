@@ -3,7 +3,10 @@
     {% block pageTitle %}comics sans ms marvel{% endblock %}
 
     {% block body %}
-        <a href="{{ path('character_index') }}" class="btn btn-warning m-3 d-flex justify-content-center m-5">
+        <a href="{{ path('character_index', { 'number': 10 }) }}" class="btn btn-warning m-3 d-flex justify-content-center m-5">
+            Display 10 characters
+        </a>
+        <a href="{{ path('character_index', { 'number': 20 }) }}" class="btn btn-warning m-3 d-flex justify-content-center m-5">
             Display 20 characters
         </a>
     {% endblock %}

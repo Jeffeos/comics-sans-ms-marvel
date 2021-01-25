@@ -17,13 +17,14 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/character", name="character_index")
+     * @Route("/characters/{number}", name="character_index", methods={"GET"})
+     * @param int $number
      * @return Response
      */
-    public function index(): Response
+    public function index(int $number): Response
     {
         return $this->render('character/index.html.twig', [
-            'characters' => $this->characterRepository->getMarvelCharacters(20, 100),
+            'characters' => $this->characterRepository->getMarvelCharacters($number, 100),
         ]);
     }
 
