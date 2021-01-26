@@ -39,5 +39,9 @@ III. Further developments:
 - Security: The parameter used to access a character's page should be a slug instead of its ID. 
 - Tests: Implement tests for the appController
 
+## V2 Development:
+- I am working on a V2 of this app following code review from a peer. You can check my work-in-progress on the v2-dev branch. 
+- I am accepting all feedbacks and advices to further improve this app, do not hesitate to contact me! 
+
 ## Have fun!
 `If you want to have a glimpse of the website without installing it, you can check the screenshot folder`
