@@ -2,18 +2,18 @@
 
 namespace App\Adapter\Repository\Character;
 
+use App\HttpClient\SymfonyHttpClient;
 use DateTime;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MarvelApiCharacterRepositoryAdapter implements CharacterRepositoryAdapterInterface
 {
-    private HttpClientInterface  $client;
+    private SymfonyHttpClient $client;
     private string $baseUrl;
     private string $apiPublicKey;
     private string $apiPrivateKey;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params)
+    public function __construct(SymfonyHttpClient $client, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->baseUrl = $params->get('marvel_url');
@@ -32,12 +32,12 @@ class MarvelApiCharacterRepositoryAdapter implements CharacterRepositoryAdapterI
             'id' => $id,
         ]];
 
-        $response = $this->client->request('GET', $url, $options);
+        $response = $this->client->get($url, $options);
 
         return $response->toArray()['data']['results'];
     }
 
-    public function constructFullApiKey()
+    public function constructFullApiKey(): string
     {
         $date = new DateTime();
         $ts = $date->getTimestamp();

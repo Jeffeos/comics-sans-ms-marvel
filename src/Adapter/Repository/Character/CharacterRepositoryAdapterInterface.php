@@ -3,12 +3,12 @@
 namespace App\Adapter\Repository\Character;
 
 use App\DTO\Character;
+use App\HttpClient\SymfonyHttpClient;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 interface CharacterRepositoryAdapterInterface
 {
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params);
+    public function __construct(SymfonyHttpClient $client, ParameterBagInterface $params);
 
     /**
      * @return array<int, Character>
