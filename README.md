@@ -16,7 +16,7 @@ Or you can contact me, as Marvel specifically requests not to share our API keys
 2. Run composer install
 3. Unzip the .env.local.zip file with the password I provided
 4. Launch your local server, please type: `symfony server:start`
-(optional) 5. You can launch phpunit tests with this command: `phpunit tests\CharacterTest.php`
+5. (optional) You can launch phpunit tests with this command: `phpunit tests\Service\CharacterFactoryTest.php`
 
 /!\ You can get your API Keys at https://developer.marvel.com/documentation/getting_started
 Or you can contact me as Marvel specifically requests not to share our API keys:
