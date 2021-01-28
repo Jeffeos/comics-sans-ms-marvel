@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use App\Adapter\Repository\Character\CharacterRepository;
+use App\Adapter\Repository\Character\CharacterRepositoryAdapterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CharacterController extends AbstractController
 {
-    private CharacterRepository $characterRepository;
+    private CharacterRepositoryAdapterInterface $characterRepository;
 
-    public function __construct(CharacterRepository $characterRepository)
+    public function __construct(CharacterRepositoryAdapterInterface $characterRepository)
     {
         $this->characterRepository = $characterRepository;
     }
